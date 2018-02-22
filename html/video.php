@@ -20,17 +20,6 @@
 } catch (Exception $e) {
         echo "Connection failed";
     }
-
-
-
-    $sql = 'SELECT * FROM View_video';
-    print "<pre>";
-    foreach ($db->query($sql) as $row) {
-        print $row['titre'] . "\t";
-        print $row['episode'] . "\t";
-        print $row['duree'] . "\n";
-    }
-    print "</pre>";
     ?>
 
     <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
