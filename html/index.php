@@ -1,55 +1,46 @@
-<!DOCTYPE html>
-<html lang="en">
+<?php
+require_once __DIR__."/templates.inc";
+print_header("index video");
+?><body>
 
-<head>
-  <meta charset="utf-8">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
-  <title>Film</title>
-</head>
+<?php
 
-<body>
-  <ul>
-    <li> <a href="index.php">HOME</a><br></li>
-    <li> <a href="video.php">VIDEO</a><br></li>
-  </ul>
 
-  <?php
-  // Check connection
-  try {
-      $db = new PDO("mysql:host=db;dbname=Film", "root", "root");
-      echo "Connection succes";
+print_nav_menu();
+$db = connect_DB();
+$sql = 'SELECT * FROM View_video';
+print "<pre>";
+foreach ($db->query($sql) as $row) {
+    print $row['titre']."\t";
+    print $row['episode']."\t";
+    print $row['duree']."\n";
+}
+print "</pre>";
+?>    <form id="form1" name="form1" method="post" action="<?php
 
-} catch (Exception $e) {
-        echo "Connection failed";
-    }
-
-    $sql = 'SELECT * FROM View_video';
-    print "<pre>";
-    foreach ($db->query($sql) as $row) {
-        print $row['titre'] . "\t";
-        print $row['episode'] . "\t";
-        print $row['duree'] . "\n";
-    }
-    print "</pre>";
-    ?>
-
-    <form id="form1" name="form1" method="post" action="<?php echo $_SERVER['PHP_SELF']?>">
+echo $_SERVER['PHP_SELF']
+?>">
       Film List :
       <select Emp Name='NEW'>
         <option value="">--- Select ---</option>
         <?php
 
-        foreach ($db->query($sql) as $row) {
-          echo '<option value="">' .$row['titre']; '</option>';
-        }
 
-        ?>
-    </select>
-      <input type="submit">
+foreach ($db->query($sql) as $row) {
+    printf('<option value="%d">%s</option>', $row['ID_Video'], $row['titre']);
+}
+
+?>    </select>
+<button type="button" id="edit">Edit</button>
     </form>
 
+    <?php print_scripts(); ?>
+<script type="text/javascript">
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+$("button#edit").on("click", function() {
+  window.location.replace("edit_videos.php?id="+ $("select").val())
+})
+</script>
 </body>
 
 </html>
