@@ -34,11 +34,19 @@ print_header("Edit video");
   echo "</pre>";
 
   if ($id) {
-      echo "This is for an update\n";
-      $existing_title = $db->query('SELECT * FROM View_video');
-      print_r($existing_title);
-      echo $row['titre']."toto";
-  // TODO: Populate $existing_title etc.
+      echo "This is for an update <br>";
+      $db = connect_DB();
+      $sql = "SELECT titre, duree FROM View_video WHERE ID_Video = $id";
+
+      $sql2 = "SELECT Video.ID_Video, Video.titre, Sous_titre.Langue, Pays.nom_pays, Realisateur.nom_realisateur,Type.nom_type, version.nom_version FROM Video LEFT JOIN Sous_titre ON Video.ID_Sous_titre = Sous_titre.ID_Sous_titre LEFT JOIN Pays ON Video.ID_Pays = Pays.ID_Pays LEFT JOIN Realisateur ON Video.ID_Realisateur = Realisateur.ID_Realisateur LEFT JOIN version on Video.ID_Version = version.ID_Version LEFT JOIN Type on Video.ID_Type = Type.ID_Type";
+
+      print "<br>";
+      foreach ($db->query($sql2) as $row) {
+          $existing_title = $row['titre']."\n";
+          $existing_duration = $row['duree']."\n";
+          $existing_episode = $row['episode']."\n";
+          print_r($existing_duration);
+      }
   } else {
       echo "This is for an insert";
   }
@@ -48,6 +56,8 @@ print_header("Edit video");
     <input type="hidden" name="id" value="<?php echo $id ?>">
     <label for="title">title: </label>
     <input type="text" name="title" id="title" value="<?php echo $existing_title ?>">
+    <label for="title">duration: </label>
+    <input type="text" name="duration" id="duration" value="<?php echo $existing_duration ?>">
     <button type="submit" name="button">OK!</button>
   </form>
   <?php
