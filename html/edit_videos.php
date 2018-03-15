@@ -25,7 +25,7 @@ print_header("Edit video");
 <body>
   <?php
 
-  $db = new PDO("mysql:host=db;dbname=Film", "root", "root");
+  $db = new PDO("mysql:host=db;dbname=Film_Nicolas", "root", "root");
   print_nav_menu();
 
   echo "<pre>";
