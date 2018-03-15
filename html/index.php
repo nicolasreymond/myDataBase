@@ -21,7 +21,7 @@ print "</pre>";
 echo $_SERVER['PHP_SELF']
 ?>">
       Film List :
-      <select Emp Name='NEW'>
+      <select class="js-example-basic-single" Emp Name='NEW'>
         <option value="">--- Select ---</option>
         <?php
 
