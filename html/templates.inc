@@ -19,7 +19,7 @@ function connect_DB()
 
     // Check connection
     try {
-        $db = new PDO("mysql:host=db;dbname=Film", "root", "root");
+        $db = new PDO("mysql:host=db;dbname=Film_Nicolas", "root", "root");
         error_log("Connection succes");
         return $db;
     } catch (Exception $e) {

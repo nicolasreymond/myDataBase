@@ -8,7 +8,7 @@ print_header("index video");
 
 print_nav_menu();
 $db = connect_DB();
-$sql = 'SELECT * FROM View_video';
+$sql = 'SELECT * FROM T_View_video';
 print "<pre>";
 foreach ($db->query($sql) as $row) {
     print $row['titre']."\t";
