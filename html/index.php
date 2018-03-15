@@ -36,7 +36,9 @@ foreach ($db->query($sql) as $row) {
 
     <?php print_scripts(); ?>
 <script type="text/javascript">
-
+$(document).ready(function() {
+    $('.js-example-basic-single').select2();
+});
 $("button#edit").on("click", function() {
   window.location.replace("edit_videos.php?id="+ $("select").val())
 })
