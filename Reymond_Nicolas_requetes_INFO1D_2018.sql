@@ -1,8 +1,8 @@
 DROP TABLE `T_Hadi`;
 
-CREATE TABLE `T_Hadi` (`ID_Hadi` int(11) NOT NULL, `nom_Hadi` varchar(25) DEFAULT NULL);
+CREATE TABLE `T_Hadi` (`ID_Hadi` int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT, `nom_Hadi` varchar(25) DEFAULT NULL);
 
-INSERT INTO `T_Hadi` (`nom_Hadi`) VALUES ('toto'), ('root'), ('LEO'), ('Kali');
+INSERT INTO `T_Hadi` (`nom_Hadi`) VALUES ('toto'), ('root'), ('Malera'), ('Kali');
 
 SELECT * FROM `T_Hadi` WHERE `ID_Hadi` = 2 ;
 SELECT * FROM `T_Hadi` WHERE `ID_Hadi` < 2 ;
@@ -25,3 +25,5 @@ SELECT * FROM `T_Hadi` WHERE `ID_Hadi` BETWEEN 2 AND 3 ;
 SELECT * FROM `T_Hadi` WHERE `ID_Hadi` NOT BETWEEN 1 AND 2 ;
 
 SELECT * FROM `T_Hadi` WHERE `ID_Hadi` IS NOT NULL;
+
+SELECT * FROM `T_Hadi` WHERE (`nom_Hadi` REGEXP '[Kt]\w*');
