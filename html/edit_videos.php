@@ -9,6 +9,8 @@ if ($_POST) {
     $existing_title = $_POST['title'];
     $existing_duration = $_POST['duration'];
     $existing_episode = $_POST['episode'];
+    $existing_saison = $_POST['saison'];
+    $existing_date_sortie = $_POST['date_sortie'];
     $existing_Langue = $_POST['Langue'];
     $existing_nom_pays = $_POST['nom_pays'];
     $existing_nom_type = $_POST['nom_type'];
@@ -19,8 +21,8 @@ if ($_POST) {
         // UPDATE
     } else {
         // INSERT
-        $stmt = $db->prepare("INSERT INTO T_Video (`titre`, `duree`, `episode`) VALUES(?,?,?)");
-        $stmt->execute(array('test','00:50:55', 5));
+        $stmt = $db->prepare("INSERT INTO T_Video (`titre`, `duree`, `episode`, `saison`, `date_sortie`) VALUES(?,?,?,?,?)");
+        $stmt->execute(array($existing_title, $existing_duration, $existing_episode, $existing_saison, $existing_date_sortie));
         $id = $db->lastInsertId();
     }
     Header("HTTP/1.1 301 Moved Permanently");
@@ -45,7 +47,7 @@ print_header("Edit video");
       $db = connect_DB();
       $sql = "SELECT * FROM T_View_video WHERE ID_Video = $id";
 
-      $sql2 = "SELECT T_Video.ID_Video, T_Video.titre, T_Video.episode, T_Video.duree,\n"
+      $sql2 = "SELECT T_Video.ID_Video, T_Video.titre, T_Video.episode, T_Video.duree, T_Video.saison,T_Video.date_sortie,\n"
     . "      T_Sous_titre.Langue, T_Pays.nom_pays, T_Type.nom_type,\n"
     . "      T_version.nom_version\n"
     . "      FROM T_Video\n"
@@ -59,6 +61,8 @@ print_header("Edit video");
           $existing_title = $row['titre']."\n";
           $existing_duration = $row['duree']."\n";
           $existing_episode = $row['episode']."\n";
+          $existing_saison = $row['saison']."\n";
+          $existing_date_sortie = $row['date_sortie']."\n";
           $existing_Langue = $row['Langue']."\n";
           $existing_nom_pays = $row['nom_pays']."\n";
           $existing_nom_type = $row['nom_type']."\n";
@@ -77,8 +81,16 @@ print_header("Edit video");
     <input type="text" name="duration" id="duration" value="<?php echo $existing_duration ?>"><br>
     <label for="episode">episode: </label>
     <input type="text" name="episode" id="episode" value="<?php echo $existing_episode ?>"><br>
+    <label for="saison">saison: </label>
+    <input type="text" name="saison" id="saison" value="<?php echo $existing_saison ?>"><br>
+    <label for="date_sortie">date_sortie: </label>
+    <input type="text" name="date_sortie" id="date_sortie" value="<?php echo $existing_date_sortie ?>"><br>
     <label for="Langue">Langue: </label>
-    <input type="text" name="Langue" id="Langue" value="<?php echo $existing_Langue ?>"><br>
+    <select name="Langue">
+      <?php foreach ($db->query('SELECT * FROM T_version') as $row) {
+      printf('<option value="%d">%s</option>', $row['ID_Version'], $row['nom_version']);
+  }?>
+    </select><br>
     <label for="nom_pays">nom_pays: </label>
     <input type="text" name="nom_pays" id="nom_pays" value="<?php echo $existing_nom_pays ?>"><br>
     <label for="nom_type">nom_type: </label>
