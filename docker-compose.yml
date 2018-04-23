@@ -3,6 +3,8 @@ version: '2'
 services:
    db:
      build: ./mysql
+     ports:
+       - '8080:80'
      volumes:
        - db_data:/var/lib/mysql
      environment:
