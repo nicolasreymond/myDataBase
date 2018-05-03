@@ -1,9 +1,12 @@
+DROP Database IF EXISTS `Film_Nicolas`;
+CREATE Database IF NOT EXISTS `Film_Nicolas`;
+USE `Film_Nicolas`;
 -- phpMyAdmin SQL Dump
 -- version 4.7.4
 -- https://www.phpmyadmin.net/
 --
 -- Host: db
--- Generation Time: Mar 07, 2018 at 02:46 PM
+-- Generation Time: May 03, 2018 at 07:00 AM
 -- Server version: 5.6.39
 -- PHP Version: 7.0.21
 
@@ -21,32 +24,32 @@ SET time_zone = "+00:00";
 --
 -- Database: `Film_Nicolas`
 --
-DROP Database Film_Nicolas;
+
 -- --------------------------------------------------------
-CREATE Database Film_Nicolas;
-USE Film_Nicolas;
+
 --
--- Table structure for table `est`
+-- Table structure for table `T_est`
 --
 
 CREATE TABLE `T_est` (
-  `ID_Video` int(11) NOT NULL,
-  `ID_Genre` int(11) NOT NULL
+  `ID_est` int(11) NOT NULL,
+  `fk_Video` int(11) NOT NULL,
+  `fk_Genre` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `est`
+-- Dumping data for table `T_est`
 --
 
-INSERT INTO `T_est` (`ID_Video`, `ID_Genre`) VALUES
-(1, 1),
-(1, 3),
-(3, 3);
+INSERT INTO `T_est` (`ID_est`, `fk_Video`, `fk_Genre`) VALUES
+(1, 1, 1),
+(2, 1, 3),
+(3, 3, 3);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `Genre`
+-- Table structure for table `T_Genre`
 --
 
 CREATE TABLE `T_Genre` (
@@ -55,7 +58,7 @@ CREATE TABLE `T_Genre` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `Genre`
+-- Dumping data for table `T_Genre`
 --
 
 INSERT INTO `T_Genre` (`ID_Genre`, `nom_genre`) VALUES
@@ -68,7 +71,30 @@ INSERT INTO `T_Genre` (`ID_Genre`, `nom_genre`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `Pays`
+-- Table structure for table `T_Hadi`
+--
+
+CREATE TABLE `T_Hadi` (
+  `ID_Hadi` int(11) NOT NULL,
+  `nom_Hadi` varchar(25) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `T_Hadi`
+--
+
+INSERT INTO `T_Hadi` (`ID_Hadi`, `nom_Hadi`) VALUES
+(1, '她今天看起?'),
+(2, 'tOto'),
+(3, 'Kali'),
+(4, 'root'),
+(5, 'Malera'),
+(6, '?ren');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `T_Pays`
 --
 
 CREATE TABLE `T_Pays` (
@@ -77,7 +103,7 @@ CREATE TABLE `T_Pays` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `Pays`
+-- Dumping data for table `T_Pays`
 --
 
 INSERT INTO `T_Pays` (`ID_Pays`, `nom_pays`) VALUES
@@ -87,27 +113,28 @@ INSERT INTO `T_Pays` (`ID_Pays`, `nom_pays`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `Produit`
+-- Table structure for table `T_Produit`
 --
 
 CREATE TABLE `T_Produit` (
-  `ID_Video` int(11) NOT NULL,
-  `ID_Realisateur` int(11) NOT NULL
+  `ID_Produit` int(11) NOT NULL,
+  `fk_Video` int(11) NOT NULL,
+  `fk_Realisateur` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `Produit`
+-- Dumping data for table `T_Produit`
 --
 
-INSERT INTO `T_Produit` (`ID_Video`, `ID_Realisateur`) VALUES
-(1, 1),
-(2, 1),
-(3, 2);
+INSERT INTO `T_Produit` (`ID_Produit`, `fk_Video`, `fk_Realisateur`) VALUES
+(1, 3, 2),
+(2, 12, 1),
+(3, 1, 1);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `Realisateur`
+-- Table structure for table `T_Realisateur`
 --
 
 CREATE TABLE `T_Realisateur` (
@@ -116,7 +143,7 @@ CREATE TABLE `T_Realisateur` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `Realisateur`
+-- Dumping data for table `T_Realisateur`
 --
 
 INSERT INTO `T_Realisateur` (`ID_Realisateur`, `nom_realisateur`) VALUES
@@ -126,7 +153,7 @@ INSERT INTO `T_Realisateur` (`ID_Realisateur`, `nom_realisateur`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `Sous_titre`
+-- Table structure for table `T_Sous_titre`
 --
 
 CREATE TABLE `T_Sous_titre` (
@@ -135,7 +162,7 @@ CREATE TABLE `T_Sous_titre` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `Sous_titre`
+-- Dumping data for table `T_Sous_titre`
 --
 
 INSERT INTO `T_Sous_titre` (`ID_Sous_titre`, `Langue`) VALUES
@@ -145,7 +172,7 @@ INSERT INTO `T_Sous_titre` (`ID_Sous_titre`, `Langue`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `Type`
+-- Table structure for table `T_Type`
 --
 
 CREATE TABLE `T_Type` (
@@ -154,7 +181,7 @@ CREATE TABLE `T_Type` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `Type`
+-- Dumping data for table `T_Type`
 --
 
 INSERT INTO `T_Type` (`ID_Type`, `nom_type`) VALUES
@@ -165,7 +192,7 @@ INSERT INTO `T_Type` (`ID_Type`, `nom_type`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `version`
+-- Table structure for table `T_version`
 --
 
 CREATE TABLE `T_version` (
@@ -174,7 +201,7 @@ CREATE TABLE `T_version` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `version`
+-- Dumping data for table `T_version`
 --
 
 INSERT INTO `T_version` (`ID_Version`, `nom_version`) VALUES
@@ -184,7 +211,7 @@ INSERT INTO `T_version` (`ID_Version`, `nom_version`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `Video`
+-- Table structure for table `T_Video`
 --
 
 CREATE TABLE `T_Video` (
@@ -193,28 +220,33 @@ CREATE TABLE `T_Video` (
   `duree` time NOT NULL,
   `episode` tinyint(4) NOT NULL,
   `saison` tinyint(4) NOT NULL,
-  `date_sortie` year(4) NOT NULL,
+  `date_sortie` year(4) DEFAULT NULL,
   `ID_Type` int(11) DEFAULT NULL,
   `ID_Version` int(11) DEFAULT NULL,
   `ID_Pays` int(11) DEFAULT NULL,
   `ID_Sous_titre` int(11) DEFAULT NULL,
-  `ID_Realisateur` int(11) DEFAULT NULL,
   `url` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `Video`
+-- Dumping data for table `T_Video`
 --
 
 INSERT INTO `T_Video` (`ID_Video`, `titre`, `duree`, `episode`, `saison`, `date_sortie`, `ID_Type`, `ID_Version`, `ID_Pays`, `ID_Sous_titre`, `url`) VALUES
 (1, 'Dragon Ball', '00:21:23', 1, 1, 2004, 3, 1, 2, 1, 'File:///dev/www/dragon_Ball/Dragon_Ball_ep1'),
 (2, 'Dragon Ball', '00:22:42', 2, 1, 2004, 3, 1, 2, 1, ''),
-(3, 'Retour vers le futur', '02:02:02', 1, 0, 1997, 1, 2, 1, 2, '');
+(3, 'Retour vers le futur', '00:00:00', 1, 0, 1997, 1, 2, 1, 2, ''),
+(5, 'qwertz', '00:50:55', 5, 0, 0000, 3, NULL, NULL, NULL, ''),
+(7, 'asd', '01:01:01', 5, 5, 0000, NULL, NULL, NULL, NULL, ''),
+(8, 'test3', '00:00:00', 2, 2, NULL, NULL, NULL, NULL, NULL, '/'),
+(10, 'test', '22:22:22', 2, 2, NULL, NULL, NULL, NULL, NULL, '/'),
+(11, 'asdg', '11:00:00', 2, 2, NULL, NULL, NULL, NULL, NULL, '/'),
+(12, 'hddfhfhfh', '11:00:00', 2, 2, NULL, NULL, NULL, NULL, NULL, '/');
 
 -- --------------------------------------------------------
 
 --
--- Stand-in structure for view `View_video`
+-- Stand-in structure for view `T_View_video`
 -- (See below for the actual view)
 --
 CREATE TABLE `T_View_video` (
@@ -233,7 +265,7 @@ CREATE TABLE `T_View_video` (
 -- --------------------------------------------------------
 
 --
--- Structure for view `View_video`
+-- Structure for view `T_View_video`
 --
 DROP TABLE IF EXISTS `T_View_video`;
 
@@ -244,57 +276,65 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`%` SQL SECURITY DEFINER VIEW `T_View_
 --
 
 --
--- Indexes for table `est`
+-- Indexes for table `T_est`
 --
 ALTER TABLE `T_est`
-  ADD UNIQUE KEY `est_unique` (`ID_Video`,`ID_Genre`),
-  ADD KEY `FK_est_ID_Genre` (`ID_Genre`);
+  ADD PRIMARY KEY (`ID_est`),
+  ADD UNIQUE KEY `est_unique` (`fk_Video`,`fk_Genre`),
+  ADD KEY `FK_est_ID_Genre` (`fk_Genre`);
 
 --
--- Indexes for table `Genre`
+-- Indexes for table `T_Genre`
 --
 ALTER TABLE `T_Genre`
   ADD PRIMARY KEY (`ID_Genre`);
 
 --
--- Indexes for table `Pays`
+-- Indexes for table `T_Hadi`
+--
+ALTER TABLE `T_Hadi`
+  ADD PRIMARY KEY (`ID_Hadi`);
+
+--
+-- Indexes for table `T_Pays`
 --
 ALTER TABLE `T_Pays`
   ADD PRIMARY KEY (`ID_Pays`);
 
 --
--- Indexes for table `Produit`
+-- Indexes for table `T_Produit`
 --
 ALTER TABLE `T_Produit`
-  ADD PRIMARY KEY (`ID_Video`,`ID_Realisateur`),
-  ADD KEY `FK_Produit_ID_Realisateur` (`ID_Realisateur`);
+  ADD PRIMARY KEY (`ID_Produit`),
+  ADD KEY `FK_Produit_ID_Realisateur` (`fk_Realisateur`),
+  ADD KEY `FK_Produit_ID_Video` (`fk_Video`);
 
 --
--- Indexes for table `Realisateur`
+-- Indexes for table `T_Realisateur`
 --
 ALTER TABLE `T_Realisateur`
   ADD PRIMARY KEY (`ID_Realisateur`);
 
 --
--- Indexes for table `Sous_titre`
+-- Indexes for table `T_Sous_titre`
 --
 ALTER TABLE `T_Sous_titre`
   ADD PRIMARY KEY (`ID_Sous_titre`);
 
 --
--- Indexes for table `Type`
+-- Indexes for table `T_Type`
 --
 ALTER TABLE `T_Type`
   ADD PRIMARY KEY (`ID_Type`);
 
 --
--- Indexes for table `version`
+-- Indexes for table `T_version`
 --
 ALTER TABLE `T_version`
   ADD PRIMARY KEY (`ID_Version`);
 
 --
--- Indexes for table `Video`
+-- Indexes for table `T_Video`
 --
 ALTER TABLE `T_Video`
   ADD PRIMARY KEY (`ID_Video`),
@@ -308,67 +348,85 @@ ALTER TABLE `T_Video`
 --
 
 --
--- AUTO_INCREMENT for table `Genre`
+-- AUTO_INCREMENT for table `T_est`
+--
+ALTER TABLE `T_est`
+  MODIFY `ID_est` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `T_Genre`
 --
 ALTER TABLE `T_Genre`
   MODIFY `ID_Genre` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT for table `Pays`
+-- AUTO_INCREMENT for table `T_Hadi`
+--
+ALTER TABLE `T_Hadi`
+  MODIFY `ID_Hadi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `T_Pays`
 --
 ALTER TABLE `T_Pays`
   MODIFY `ID_Pays` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT for table `Realisateur`
+-- AUTO_INCREMENT for table `T_Produit`
+--
+ALTER TABLE `T_Produit`
+  MODIFY `ID_Produit` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `T_Realisateur`
 --
 ALTER TABLE `T_Realisateur`
   MODIFY `ID_Realisateur` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT for table `Sous_titre`
+-- AUTO_INCREMENT for table `T_Sous_titre`
 --
 ALTER TABLE `T_Sous_titre`
   MODIFY `ID_Sous_titre` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT for table `Type`
+-- AUTO_INCREMENT for table `T_Type`
 --
 ALTER TABLE `T_Type`
   MODIFY `ID_Type` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT for table `version`
+-- AUTO_INCREMENT for table `T_version`
 --
 ALTER TABLE `T_version`
   MODIFY `ID_Version` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT for table `Video`
+-- AUTO_INCREMENT for table `T_Video`
 --
 ALTER TABLE `T_Video`
-  MODIFY `ID_Video` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `ID_Video` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- Constraints for dumped tables
 --
 
 --
--- Constraints for table `est`
+-- Constraints for table `T_est`
 --
 ALTER TABLE `T_est`
-  ADD CONSTRAINT `FK_est_ID_Genre` FOREIGN KEY (`ID_Genre`) REFERENCES `T_Genre` (`ID_Genre`),
-  ADD CONSTRAINT `FK_est_ID_Video` FOREIGN KEY (`ID_Video`) REFERENCES `T_Video` (`ID_Video`);
+  ADD CONSTRAINT `FK_est_ID_Genre` FOREIGN KEY (`fk_Genre`) REFERENCES `T_Genre` (`ID_Genre`),
+  ADD CONSTRAINT `FK_est_ID_Video` FOREIGN KEY (`fk_Video`) REFERENCES `T_Video` (`ID_Video`);
 
 --
--- Constraints for table `Produit`
+-- Constraints for table `T_Produit`
 --
 ALTER TABLE `T_Produit`
-  ADD CONSTRAINT `FK_Produit_ID_Realisateur` FOREIGN KEY (`ID_Realisateur`) REFERENCES `T_Realisateur` (`ID_Realisateur`),
-  ADD CONSTRAINT `FK_Produit_ID_Video` FOREIGN KEY (`ID_Video`) REFERENCES `T_Video` (`ID_Video`);
+  ADD CONSTRAINT `FK_Produit_ID_Realisateur` FOREIGN KEY (`fk_Realisateur`) REFERENCES `T_Realisateur` (`ID_Realisateur`),
+  ADD CONSTRAINT `FK_Produit_ID_Video` FOREIGN KEY (`fk_Video`) REFERENCES `T_Video` (`ID_Video`);
 
 --
--- Constraints for table `Video`
+-- Constraints for table `T_Video`
 --
 ALTER TABLE `T_Video`
   ADD CONSTRAINT `FK_Video_ID_Pays` FOREIGN KEY (`ID_Pays`) REFERENCES `T_Pays` (`ID_Pays`),
@@ -379,4 +437,3 @@ COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
