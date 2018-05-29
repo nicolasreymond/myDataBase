@@ -4,7 +4,7 @@ CREATE TABLE `T_Hadi` (`ID_Hadi` int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT, `n
 
 ALTER TABLE `T_Hadi` CHANGE `nom_Hadi` `nom_Hadi` VARCHAR(25) CHARACTER SET big5 COLLATE big5_chinese_ci NULL DEFAULT NULL;
 
-INSERT INTO `T_Hadi` (`nom_Hadi`) VALUES ('她今天看起来'), ('tOto'), ('Kali'), ('root'), ('Malera'), ('hören');
+INSERT INTO `T_Hadi` (`nom_Hadi`) VALUES ('她今天看起来'), ('tOto'), ('Kali'), ('root'), ('Malera'), ('hören'), ('zuzu');
 
 SELECT * FROM `T_Hadi` ORDER BY `ID_Hadi`;
 
@@ -60,10 +60,20 @@ SELECT * FROM `T_Hadi` ORDER BY `ID_Hadi` COLLATE latin1_german2_ci;
 SELECT (TIMEDIFF(duree, (SELECT duree FROM T_Video WHERE `ID_Video` = 1))) AS time FROM T_Video ;
 
 SELECT COUNT(*) AS nb_video FROM T_Video;
-SELECT AVG(duree) FROM T_Video WHERE duree IS NOT NULL;
+SELECT AVG(date_sortie) FROM T_Video WHERE date_sortie IS NOT NULL;
 SELECT MAX(duree) FROM T_Video WHERE duree IS NOT NULL;
 SELECT MIN(date_sortie) FROM T_Video WHERE date_sortie IS NOT NULL;
 
+SELECT ID_Video,titre,CHAR_LENGTH(titre) AS lenTitre FROM T_Video ORDER BY lenTitre DESC limit 5;
+
 SELECT (SELECT COUNT(*) FROM T_Video) AS nb_video, (SELECT COUNT(*) FROM T_version) AS nb_version, (SELECT COUNT(*) FROM T_Type) AS nb_type, (SELECT COUNT(*) FROM T_Sous_titre) AS nb_sous_titre, (SELECT COUNT(*) FROM T_Realisateur) AS nb_realisateur, (SELECT COUNT(*) FROM T_Pays) AS nb_pays, (SELECT COUNT(*) FROM T_Hadi) AS nb_Hadi, (SELECT COUNT(*) FROM T_Genre) AS nb_genre;
 
-SELECT SUM(myVideoCount) FROM(SELECT COUNT(*) AS myVideoCount FROM T_Video, T_version,T_Type,T_Sous_titre,T_Realisateur,T_Pays,T_Hadi,T_Genre) AS A;
+select tb1.nb_video + tb2.nb_version + tb3.nb_Type + tb4.nb_Genre + tb5.nb_Hadi + tb6.nb_Pays + tb7.nb_Realisateur + tb8.nb_Sous_titre from
+    (Select Count(ID_Video) as nb_video From T_Video) tb1,
+    (Select Count(ID_Version) as nb_version From T_version) tb2,
+    (SELECT COUNT(ID_Type) AS nb_Type FROM T_Type) tb3,
+    (SELECT COUNT(ID_Genre) AS nb_Genre FROM T_Genre) tb4,
+    (SELECT COUNT(ID_Hadi) AS nb_Hadi FROM T_Hadi) tb5,
+    (SELECT COUNT(ID_Pays) AS nb_Pays FROM T_Pays) tb6,
+    (SELECT COUNT(ID_Realisateur) AS nb_Realisateur FROM T_Realisateur) tb7,
+    (SELECT COUNT(ID_Sous_titre) AS nb_Sous_titre FROM T_Sous_titre) tb8;
